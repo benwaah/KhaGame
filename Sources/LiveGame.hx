@@ -1,5 +1,7 @@
 package;
 
+import kha.Scaler;
+import kha.Image;
 import kha.Color;
 import kha.Font;
 import kha.Assets;
@@ -10,10 +12,17 @@ import kha.System;
 
 class LiveGame {
 
+	private var initialized:Bool = false;
 	private var font:Font;
+	private var grumpyCat:Image;
+	private var backbuffer:Image;
 
 	public function new() {
-		Assets.loadFont("AnonymousPro", onFontLoad);
+		backbuffer = Image.createRenderTarget(800, 600);
+
+		Assets.loadFont("AnonymousProB", onFontLoad);
+		Assets.loadImage("grumpy_cat_nope", onImageLoad);
+
 		System.notifyOnRender(render);
 		Scheduler.addTimeTask(update, 0, 1 / 60);
 	}
@@ -23,8 +32,17 @@ class LiveGame {
 	}
 
 	function render(framebuffer: Framebuffer): Void {
-		var g:Graphics = framebuffer.g2;
-		g.clear();
+		if (!initialized)
+			return;
+
+		var g:Graphics = backbuffer.g2;
+		g.begin();
+		g.drawImage(grumpyCat, 0, 0);
+		g.end();
+
+		g = framebuffer.g2;
+		g.begin();
+		Scaler.scale(backbuffer, framebuffer, System.screenRotation);
 		g.font = font;
 		g.fontSize = 32;
 		g.color = Color.Purple;
@@ -34,5 +52,15 @@ class LiveGame {
 
 	private function onFontLoad(font:Font):Void {
 		this.font = font;
+		checkInitialization();
+	}
+
+	private function onImageLoad(image:Image):Void {
+		grumpyCat = image;
+		checkInitialization();
+	}
+
+	private inline function checkInitialization():Void {
+		initialized = !((font == null) || (grumpyCat == null));
 	}
 }
