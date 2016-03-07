@@ -10,8 +10,8 @@ import kha.Framebuffer;
 import kha.Scheduler;
 import kha.System;
 
-class LiveGame {
-
+class LiveGame
+{
 	private static inline var FRAME_SIZE:Float = 64;
 	private static inline var FRAME_COUNT:Float = 3;
 	private static inline var FRAME_TIME:UInt = 50;
@@ -26,7 +26,8 @@ class LiveGame {
 
 	private var currentTime:Float = 0;
 
-	public function new() {
+	public function new()
+	{
 		backbuffer = Image.createRenderTarget(800, 600);
 
 		setNewTime();
@@ -38,11 +39,12 @@ class LiveGame {
 		Scheduler.addTimeTask(update, 0, 1 / 60);
 	}
 
-	function update(): Void {
-		
+	function update(): Void
+	{
 	}
 
-	function render(framebuffer: Framebuffer): Void {
+	function render(framebuffer: Framebuffer): Void
+	{
 		if (!initialized)
 			return;
 
@@ -76,21 +78,25 @@ class LiveGame {
 			yPos = 0;
 	}
 
-	private function onFontLoad(font:Font):Void {
+	private function onFontLoad(font:Font):Void
+	{
 		this.font = font;
 		checkInitialization();
 	}
 
-	private function onWizardLoad(image:Image):Void {
+	private function onWizardLoad(image:Image):Void
+	{
 		wizard = image;
 		checkInitialization();
 	}
 
-	private inline function checkInitialization():Void {
+	private inline function checkInitialization():Void
+	{
 		initialized = !((font == null) || (wizard == null));
 	}
 
-	private function setNewTime():Void {
+	private function setNewTime():Void
+	{
 		currentTime = Scheduler.time() * 1000;
 	}
 }
