@@ -4,19 +4,19 @@ import core.BaseObject;
 
 interface DisplayNode extends BaseObject
 {
-	var name(default, default):String;
+	var name(get, set):String;
 
-	var x(default, default):Float;
-	var y(default, default):Float;
-	var z(default, default):Float;
+	var x(get, set):Float;
+	var y(get, set):Float;
+	var z(get, set):Float;
 
-	var width(default, default):Float;
-	var heigth(default, default):Float;
-	var depth(default, default):Float;
+	var width(get, set):Float;
+	var height(get, set):Float;
+	var depth(get, set):Float;
 
-	var scaleX(default, default):Float;
-	var scaleY(default, default):Float;
-	var scaleZ(default, default):Float;
+	var scaleX(get, set):Float;
+	var scaleY(get, set):Float;
+	var scaleZ(get, set):Float;
 
 	var parent(get, null):DisplayNodeContainer;
 }

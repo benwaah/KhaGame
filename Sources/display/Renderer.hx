@@ -1,6 +1,8 @@
 package display;
 
-interface Renderer
+import core.BaseObject;
+
+interface Renderer extends BaseObject
 {
-	function render(graphics:Graphics):Void;
+	function render():Void;
 }

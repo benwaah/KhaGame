@@ -1,5 +1,6 @@
 package display;
 
-interface Graphics {
+interface Graphics
+{
 
 }

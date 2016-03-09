@@ -1,7 +1,8 @@
-import display.layer.RenderableLayerManagerTests;
-import massive.munit.TestSuite;
 import core.ObjectFactoryTests;
+import display.layer.RenderableLayerManagerTests;
 import display.two.TwoDimDisplayNodeContainerTests;
+import display.two.kha.KhaRendererTests;
+import massive.munit.TestSuite;
 
 class TestSuite extends massive.munit.TestSuite
 {
@@ -11,5 +12,6 @@ class TestSuite extends massive.munit.TestSuite
 		add(ObjectFactoryTests);
 		add(TwoDimDisplayNodeContainerTests);
 		add(RenderableLayerManagerTests);
+		add(KhaRendererTests);
 	}
 }

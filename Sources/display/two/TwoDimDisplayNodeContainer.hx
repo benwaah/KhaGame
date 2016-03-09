@@ -26,14 +26,14 @@ class TwoDimDisplayNodeContainer extends TwoDimDisplayNode implements DisplayNod
 
 	public function addChild(node:DisplayNode):DisplayNode
 	{
-		cast(node, TwoDimDisplayNode)._parent = this;
+		cast(node, TwoDimDisplayNode).set_parent(this);
 		_children.push(node);
 		return node;
 	}
 
 	public function addChildAt(node:DisplayNode, index:UInt):DisplayNode
 	{
-		cast(node, TwoDimDisplayNode)._parent = this;
+		cast(node, TwoDimDisplayNode).set_parent(this);
 		_children.insert(index, node);
 		return node;
 	}
@@ -45,7 +45,7 @@ class TwoDimDisplayNodeContainer extends TwoDimDisplayNode implements DisplayNod
 
 	public function removeChild(node:DisplayNode):DisplayNode
 	{
-		cast(node, TwoDimDisplayNode)._parent = null;
+		cast(node, TwoDimDisplayNode).set_parent(null);
 		_children.remove(node);
 		return node;
 	}
@@ -55,7 +55,7 @@ class TwoDimDisplayNodeContainer extends TwoDimDisplayNode implements DisplayNod
 		var node = _children[index];
 		if (node != null)
 		{
-			cast(node, TwoDimDisplayNode)._parent = null;
+			cast(node, TwoDimDisplayNode).set_parent(null);
 			_children.remove(node);
 		}
 		return node;
