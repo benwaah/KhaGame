@@ -37,8 +37,8 @@ class TwoDimDisplayNode implements DisplayNode
 
 	public function new()
 	{
-
 	}
+
 	public function init():Void
 	{
 	}

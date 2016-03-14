@@ -2,16 +2,21 @@ package display.two.kha;
 
 class KhaTextfieldNode extends TwoDimDisplayNode implements TextfieldNode
 {
+	@:isVar
 	public var text(get, set):String;
 
+	@:isVar
 	public var fontSize(get, set):UInt;
 
+	@:isVar
 	public var fontColor(get, set):UInt;
 
+	@:isVar
 	public var fontName(get, set):String;
 
 	public function new()
 	{
+		super();
 	}
 
 	private function get_text():String

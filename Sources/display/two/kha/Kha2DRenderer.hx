@@ -1,13 +1,15 @@
 package display.two.kha;
 
-import kha.Color;
-import kha.Font;
 class Kha2DRenderer implements Renderer
 {
 	@inject
+#if test
+	public var graphics:MockKha2DGraphics;
+	public static var fonts:Map<String, MockKhaFont>;
+#else
 	public var graphics:kha.graphics2.Graphics;
-
-	public static var fonts:Map<String, Font>;
+	public static var fonts:Map<String, kha.Font>;
+#end
 
 	private var container:KhaSprite;
 
@@ -35,7 +37,7 @@ class Kha2DRenderer implements Renderer
 		{
 			if (Std.is(child, KhaSprite))
 			{
-				renderChildren(child, child.x + xPos, child.y + yPos);
+				renderChildren(cast(child, KhaSprite), child.x + xPos, child.y + yPos);
 			}
 			else
 			{
@@ -49,7 +51,7 @@ class Kha2DRenderer implements Renderer
 				{
 					var textfield:KhaTextfieldNode = cast(child, KhaTextfieldNode);
 					graphics.fontSize = textfield.fontSize;
-					graphics.color = Color.fromValue(textfield.fontColor);
+					graphics.color = getColorFromValue(textfield.fontColor);
 					graphics.font = fonts.get(textfield.fontName);
 					graphics.drawString(textfield.text, textfield.x, textfield.y);
 				}
@@ -57,4 +59,15 @@ class Kha2DRenderer implements Renderer
 		}
 	}
 
+#if test
+	private inline function getColorFromValue(value:UInt):MockKhaColor
+	{
+		return null;
+	}
+#else
+	private inline function getColorFromValue(value:UInt):kha.Color
+	{
+		return kha.Color.fromValue(value);
+	}
+#end
 }

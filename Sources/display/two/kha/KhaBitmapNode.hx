@@ -2,18 +2,24 @@ package display.two.kha;
 
 class KhaBitmapNode extends TwoDimDisplayNode implements BitmapNode
 {
+	@:isVar
 	public var imageData(get, set):Dynamic;
 
+	@:isVar
 	public var sx(get, set):UInt;
 
+	@:isVar
 	public var sy(get, set):UInt;
 
+	@:isVar
 	public var sw(get, set):UInt;
 
+	@:isVar
 	public var sh(get, set):UInt;
 
 	public function new()
 	{
+		super();
 	}
 
 	private function get_imageData():Dynamic
