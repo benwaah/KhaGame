@@ -2,12 +2,15 @@ package display.two.kha;
 
 class Kha2DRenderer implements Renderer
 {
-	@inject
 #if test
+	@inject
 	public var graphics:MockKha2DGraphics;
+
 	public static var fonts:Map<String, MockKhaFont>;
 #else
+	@inject
 	public var graphics:kha.graphics2.Graphics;
+
 	public static var fonts:Map<String, kha.Font>;
 #end
 
@@ -45,7 +48,7 @@ class Kha2DRenderer implements Renderer
 				{
 					var bitmap:KhaBitmapNode = cast(child, KhaBitmapNode);
 					graphics.drawSubImage(bitmap.imageData, bitmap.x, bitmap.y,
-											bitmap.sx, bitmap.sy, bitmap.sw, bitmap.sh);
+					bitmap.sx, bitmap.sy, bitmap.sw, bitmap.sh);
 				}
 				else
 				{
@@ -54,6 +57,7 @@ class Kha2DRenderer implements Renderer
 					graphics.color = getColorFromValue(textfield.fontColor);
 					graphics.font = fonts.get(textfield.fontName);
 					graphics.drawString(textfield.text, textfield.x, textfield.y);
+					graphics.color = getColorFromValue(0xffffffff);
 				}
 			}
 		}

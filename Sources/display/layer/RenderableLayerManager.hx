@@ -1,9 +1,10 @@
 package display.layer;
 
-class RenderableLayerManager implements LayerManager
+class RenderableLayerManager implements LayerManager implements Renderer
 {
 	public var topContainer(get, null):DisplayNodeContainer;
 	private var layerMap:Map<String, RendererContainer>;
+	private var renderers:Array<Renderer>;
 
 	public function new(topContainer:DisplayNodeContainer)
 	{
@@ -13,11 +14,21 @@ class RenderableLayerManager implements LayerManager
 	public function init():Void
 	{
 		layerMap = new Map<String, RendererContainer>();
+		renderers = [];
 	}
 
 	public function dispose():Void
 	{
 		layerMap = null;
+		renderers = null;
+	}
+
+	public function render():Void
+	{
+		for (renderer in renderers)
+		{
+			renderer.render();
+		}
 	}
 
 	public function addLayerByName(layerName:String, container:DisplayNodeContainer, renderer:Renderer):Void
@@ -26,6 +37,7 @@ class RenderableLayerManager implements LayerManager
 			return;
 		topContainer.addChild(container);
 		layerMap.set(layerName, {container: container, renderer: renderer});
+		renderers.push(renderer);
 	}
 
 	public function getLayerByName(layerName:String):DisplayNodeContainer

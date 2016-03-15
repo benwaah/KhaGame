@@ -1,5 +1,9 @@
 package;
 
+import kha.System;
+import kha.Scaler;
+import kha.Scheduler;
+import display.Renderer;
 import core.InjectionSettings;
 import kha.Image;
 import kha.Font;
@@ -9,6 +13,9 @@ import kha.Framebuffer;
 @:build(com.dongxiguo.continuation.Continuation.cpsByMeta(":async"))
 class LiveGame
 {
+	@inject
+	public var renderer:Renderer;
+
 	private var initialized:Bool = false;
 
 	private var fonts:Map<String, Font>;
@@ -20,20 +27,32 @@ class LiveGame
 		backbuffer = Image.createRenderTarget(800, 600);
 	}
 
-	function update():Void
+	public function update():Void
 	{
+		var g = backbuffer.g2;
+		g.begin();
+		renderer.render();
+		g.end();
+
+		g = framebuffer.g2;
+		g.begin();
+		Scaler.scale(backbuffer, framebuffer, System.screenRotation);
+		g.end();
 	}
 
-	function render(framebuffer:Framebuffer): Void
+	public function render(framebuffer:Framebuffer): Void
 	{
-		if (initialized)
-		return;
-
-		initialized = true;
 		this.framebuffer = framebuffer;
 
+		if (initialized)
+			return;
+
+		initialized = true;
+
 		loadFonts(function ():Void {
-			new InjectionSettings(backbuffer, this.framebuffer, fonts);
+			var settings = new InjectionSettings(backbuffer, fonts);
+			settings.injector.injectInto(this);
+			Scheduler.addTimeTask(this.update, 0, 1 / 60);
 		});
 	}
 
